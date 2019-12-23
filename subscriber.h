@@ -2,29 +2,39 @@
 #define SUBSCRIBERS_H
 #include <fstream>
 
-class Print {
+class Sub{
 public:
-    void output(std::vector<std::shared_ptr<figures::Figure>> Vec)  {
+    virtual void output(std::vector<std::shared_ptr<figures::Figure>>& Vec) = 0;
+    virtual ~Sub() = default;
+};
+
+class Print : public Sub {
+public:
+    void output(std::vector<std::shared_ptr<figures::Figure>>& Vec) override {
         for (auto& figure : Vec) {
             figure->print(std::cout);
         }
     }
-    ~Print() = default;
 };
 
-class Log {
+class Log : public Sub{
 public:
-    void output(std::vector<std::shared_ptr<figures::Figure>> Vec)  {
+    Log() : in(1) {}
+    void output(std::vector<std::shared_ptr<figures::Figure>>& Vec) override  {
         std::string filename;
-        std::cout << "Input filename" << std::endl;
-        std::cin >> filename;
+        filename = std::to_string(in);
+        filename += ".txt";
         std::ofstream file;
         file.open(filename);
         for (auto &figure : Vec) {
             figure->print(file);
         }
+        in++;
     }
-    ~Log() = default;
+private :
+    int in;
 };
+
+
 
 #endif

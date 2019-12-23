@@ -21,8 +21,10 @@ int main(int argc, char** argv){
     std::mutex mutex;
     bool done = false;
     char cmd = 'd';
-    std::shared_ptr<Print> print;
-    std::shared_ptr<Log> log;
+    int in = 1;
+    std::vector<std::shared_ptr<Sub>> subs;
+    subs.push_back(std::make_shared<Print>());
+    subs.push_back(std::make_shared<Log>());
     std::thread subscriber([&]() {
         std::unique_lock<std::mutex> subscriber_lock(mutex);
         while(!done) {
@@ -31,8 +33,10 @@ int main(int argc, char** argv){
                 cv2.notify_all();
                 break;
             }
-            print->output(Vec);
-            log->output(Vec);
+            for (unsigned int i = 0; i < subs.size(); ++i) {
+                subs[i]->output(Vec);
+            }
+            in++;
             Vec.resize(0);
             cv2.notify_all();
         }
