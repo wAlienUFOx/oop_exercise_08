@@ -4,12 +4,10 @@ rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
-5.txt
 r
 rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
 rectangle 2 2 2 2 2 2 2 2
-6.txt
 q
